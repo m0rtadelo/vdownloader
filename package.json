@@ -24,7 +24,7 @@
   "build": {
     "appId": "vdownloader",
     "mac": {
-      "category": "your.app.category.type"
+      "category": "mac.is.a.shit"
     }
   }
 }
