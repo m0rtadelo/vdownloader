@@ -1,0 +1,19 @@
+{
+  "name": "vdownloader",
+  "version": "1.0.0",
+  "description": "V downloader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ./main.js"
+  },
+  "author": "ricard.figuls",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "electron": "^1.7.9",
+    "fs": "0.0.1-security",
+    "jquery": "^3.2.1",
+    "request": "^2.83.0"
+  }
+}
