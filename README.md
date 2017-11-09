@@ -1,2 +1,5 @@
-# vdownloader
-V downloader
+# V Downloader
+---
+npm install 
+
+npm start
