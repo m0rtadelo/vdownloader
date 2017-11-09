@@ -5,15 +5,26 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ./main.js"
+    "start": "electron ./main.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "author": "ricard.figuls",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "electron": "^1.7.9",
     "fs": "0.0.1-security",
     "jquery": "^3.2.1",
     "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "electron": "^1.7.9",
+    "electron-builder": "^19.45.4"
+  },
+  "build": {
+    "appId": "vdownloader",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   }
 }
