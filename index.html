@@ -4,11 +4,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>V Downloader</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+     .title {
+        text-align: center;
+        color: #ffffff;
+        text-shadow: -1px -1px 0px #dddddd;
+     }
+    </style>
 </head>
 
-<body>
-    <div class="container">
-        <h1 style="text-align:center">V Downloader</h1>
+<body style="background-color: #eeeeee">
+    <div class="container">        
+        <h1 class="title">V Downloader</h1>
         <form name="form" id="form" method="post">
             <div class="form-group">
                 <label for="path">Save path</label>
@@ -23,7 +30,7 @@
                 <input type="button" class="btn btn-default" id="reset" value="Reset">
             </div>
         </form>
-        <ul id="list">
+        <ul id="list" class="list-group">
 
         </ul>
         <script>

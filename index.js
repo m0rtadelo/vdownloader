@@ -1,4 +1,4 @@
-let $ = require('jquery')  // jQuery now loaded and assigned to $
+let $ = require('jquery') // jQuery now loaded and assigned to $
 let down = require("./download.js")
 let fs = require("fs")
 var list = []
@@ -8,10 +8,16 @@ var list = []
  */
 function render() {
     document.getElementById("list").innerHTML = ""
-    for (var i = 0; i < list.length; i++)
-        $("#list").append("<li>" +
+    
+    for (var i = 0; i < list.length; i++){
+        var clr = ""
+        if(list[i].status == "error")clr = "list-group-item-danger"
+        else if(list[i].bytes>0)clr = "list-group-item-success"
+        else if(list[i].status.startsWith("status: "))clr = "list-group-item-danger"
+        $("#list").append("<a href=\"#\" class=\"list-group-item list-group-item-action "+clr+"\">" +
             list[i].urlSplit[0] + "//" + list[i].urlSplit[2] + "/.../" + list[i].urlSplit[list[i].urlSplit.length - 1]
-            + " (" + list[i].status + ")</li>")
+            + " (" + list[i].status + ")</a>")
+    }
 }
 /**
  * Returns the actual timestamp
@@ -43,7 +49,10 @@ function next(field) {
         }
     }
     // exiting if N value is void
-    if (n == "") return
+    if (n == ""){
+        field.status = field.path + field.filename + " - " + field.bytes + " bytes"
+        return
+    }
     n++// Adding +1 
 
     // creating new filename (and adding extension if exists)
@@ -73,10 +82,8 @@ function next(field) {
 
 /**
  * Downloads data from URL and writes to disk
- * 
- * @param {*} action the primary action
  */
-function download(action) {
+function download() {
 
     // Path is required
     if ($("#path").val().length < 3) {
@@ -130,10 +137,14 @@ $("#reset").on("click", () => {
 })
 $("#download").on("click", () => {
     download()
+    $("#url").val("")
+    $("#url").focus()    
 })
-
+$("#list").on("click",() => {
+    alert("clicked")
+})
 // Focusing
 $("#url").focus()
 
-// Setting refresh download list interval to every second
-setInterval(function () { render() }, 1000);
+// Setting refresh download list interval 
+setInterval(function () { render() }, 2000);
