@@ -5,25 +5,30 @@
     <title>V Downloader</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <style>
-     .title {
-        text-align: center;
-        color: #ffffff;
-        text-shadow: -1px -1px 0px #dddddd;
-     }
+        .title {
+            text-align: center;
+            color: #ffffff;
+            text-shadow: -1px -1px 0px #dddddd;
+        }
     </style>
 </head>
 
 <body style="background-color: #eeeeee">
-    <div class="container">        
+    <div class="container">
         <h1 class="title">V Downloader</h1>
         <form name="form" id="form" method="post">
             <div class="form-group">
-                <label for="path">Save path</label>
-                <input type="text" class="form-control" placeHolder="path" id="path" name="path" value="" required>
-            </div>
-            <div class="form-group">
                 <label for="url">URL to start downloading content</label>
                 <input type="text" class="form-control" placeHolder="URL" id="url" required name="url" value="">
+            </div>
+            <div class="form-group">
+                <label for="path">Save path</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeHolder="path" id="path" name="path" value="" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" id="folder" type="button">...</button>
+                    </span>
+                </div>
             </div>
             <div style="text-align:right">
                 <input type="button" class="btn btn-primary" id="download" value="Download">
@@ -35,7 +40,6 @@
         </ul>
         <script>
             require("./index.js")
-            document.getElementById("path").value = require("os").homedir()+ "\\Downloads\\"
         </script>
     </div>
 </body>

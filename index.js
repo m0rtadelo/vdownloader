@@ -1,7 +1,7 @@
 let $ = require('jquery') // jQuery now loaded and assigned to $
 let down = require("./download.js")
 let fs = require("fs")
-const {dialog} = require('electron').remote
+const { dialog } = require('electron').remote
 var list = []
 
 /**
@@ -89,7 +89,7 @@ function download() {
     // Path is required
     if ($("#path").val().length < 3) {
         //alert("Path must be set")
-        dialog.showErrorBox("Error validating form","Path is a required value and must be set!")
+        dialog.showErrorBox("Error validating form", "Path is a required value and must be set!")
         $("#path").focus()
         return
     }
@@ -137,6 +137,18 @@ function rset() {
     render()
 }
 
+/**
+ * Setting path with final system slash
+ * @param {*} path the folder path
+ */
+function addPath(path) {
+    var os = require("os")
+    var sep = (os.platform() == "win32" ? "\\" : "/")
+    if (!path.endsWith("sep"))
+        path = path + sep
+    $("#path").val(path)
+}
+
 // Adding onclick events (buttons)
 $("#reset").on("click", () => {
     rset()
@@ -152,8 +164,16 @@ $("#list").on("click", () => {
         require('child_process').exec('start "" \"' + file + '\"');
     }
 })
+$("#folder").on("click", () => {
+    var folder = dialog.showOpenDialog(undefined, { defaultPath: $("#path").val(), properties: ["openDirectory"] })
+    if (folder != "") {
+        addPath(folder)
+    }
+})
 // Focusing
 $("#url").focus()
+var sep = (require("os").platform() == "win32" ? "\\" : "/")
+addPath(require("os").homedir() + sep + "Downloads")
 
 // Setting refresh download list interval 
 setInterval(function () { render() }, 2000);
