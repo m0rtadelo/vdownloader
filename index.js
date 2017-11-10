@@ -1,6 +1,7 @@
 let $ = require('jquery') // jQuery now loaded and assigned to $
 let down = require("./download.js")
 let fs = require("fs")
+const {dialog} = require('electron').remote
 var list = []
 
 /**
@@ -87,7 +88,8 @@ function download() {
 
     // Path is required
     if ($("#path").val().length < 3) {
-        alert("Path must be set")
+        //alert("Path must be set")
+        dialog.showErrorBox("Error validating form","Path is a required value and must be set!")
         $("#path").focus()
         return
     }
