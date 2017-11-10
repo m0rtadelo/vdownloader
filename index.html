@@ -19,7 +19,7 @@
         <form name="form" id="form" method="post">
             <div class="form-group">
                 <label for="path">Save path</label>
-                <input type="text" class="form-control" placeHolder="path" id="path" name="path" value="D:\Root\tmp\" required>
+                <input type="text" class="form-control" placeHolder="path" id="path" name="path" value="" required>
             </div>
             <div class="form-group">
                 <label for="url">URL to start downloading content</label>
@@ -35,6 +35,7 @@
         </ul>
         <script>
             require("./index.js")
+            document.getElementById("path").value = require("os").homedir()+ "\\Downloads\\"
         </script>
     </div>
 </body>
