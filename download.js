@@ -22,7 +22,7 @@ function download(field, cb) {
             console.log("ERROR::status = " + res.statusCode)
             // check for iteration
             if (field.iteration > 0)
-                field.status = field.path + field.filename + " completed - " + field.bytes + " bytes downloaded"
+                field.status = field.path + field.filename + " - " + field.bytes + " bytes"
             else
                 field.status = "status: " + res.statusCode
             return
