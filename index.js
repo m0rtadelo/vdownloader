@@ -8,13 +8,13 @@ var list = []
  */
 function render() {
     document.getElementById("list").innerHTML = ""
-    
-    for (var i = 0; i < list.length; i++){
+
+    for (var i = 0; i < list.length; i++) {
         var clr = ""
-        if(list[i].status == "error")clr = "list-group-item-danger"
-        else if(list[i].bytes>0)clr = "list-group-item-success"
-        else if(list[i].status.startsWith("status: "))clr = "list-group-item-danger"
-        $("#list").append("<a href=\"#\" class=\"list-group-item list-group-item-action "+clr+"\">" +
+        if (list[i].status == "error") clr = "list-group-item-danger"
+        else if (list[i].bytes > 0) clr = "list-group-item-success"
+        else if (list[i].status.startsWith("status: ")) clr = "list-group-item-danger"
+        $("#list").append("<a id=" + i + " href=\"#\" class=\"list-group-item list-group-item-action " + clr + "\">" +
             list[i].urlSplit[0] + "//" + list[i].urlSplit[2] + "/.../" + list[i].urlSplit[list[i].urlSplit.length - 1]
             + " (" + list[i].status + ")</a>")
     }
@@ -49,7 +49,7 @@ function next(field) {
         }
     }
     // exiting if N value is void
-    if (n == ""){
+    if (n == "") {
         field.status = field.path + field.filename + " - " + field.bytes + " bytes"
         return
     }
@@ -105,7 +105,11 @@ function download() {
         field.urlSplit = field.url.split("?")[0].split("/");
         if (field.url.split("?").length > 1)
             field.params = field.url.split("?")[1]
-        field.filename = tstamp() + "" + field.urlSplit[field.urlSplit.length - 1]
+        var ext = field.urlSplit[field.urlSplit.length - 1].split(".")
+        if (ext.length == 1)
+            field.filename = tstamp() // + "." + field.urlSplit[field.urlSplit.length - 1]
+        else
+            field.filename = tstamp() + "." + ext[ext.length - 1]
         field.current = field.urlSplit[field.urlSplit.length - 1]
         list.push(field)// Adding to download task list
 
@@ -138,10 +142,13 @@ $("#reset").on("click", () => {
 $("#download").on("click", () => {
     download()
     $("#url").val("")
-    $("#url").focus()    
+    $("#url").focus()
 })
-$("#list").on("click",() => {
-    alert("clicked")
+$("#list").on("click", () => {
+    if (list[window.event.target.id].bytes > 0) {
+        var file = list[window.event.target.id].path + list[window.event.target.id].filename
+        require('child_process').exec('start "" \"' + file + '\"');
+    }
 })
 // Focusing
 $("#url").focus()
