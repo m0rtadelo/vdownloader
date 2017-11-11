@@ -13,7 +13,7 @@ function render() {
     for (var i = 0; i < list.length; i++) {
         var clr = ""
         if (list[i].status == "error") clr = "list-group-item-danger"
-        else if (list[i].bytes > 0) clr = "list-group-item-success"
+        else if (list[i].bytes > 0 && list[i].status.startsWith(list[i].path)) clr = "list-group-item-success"
         else if (list[i].status.startsWith("status: ")) clr = "list-group-item-danger"
         $("#list").append("<a id=" + i + " href=\"#\" class=\"list-group-item list-group-item-action " + clr + "\">" +
             list[i].urlSplit[0] + "//" + list[i].urlSplit[2] + "/.../" + list[i].urlSplit[list[i].urlSplit.length - 1]
@@ -110,7 +110,7 @@ function download() {
         var ext = field.urlSplit[field.urlSplit.length - 1].split(".")
         if (ext.length == 1)
             field.filename = tstamp() // + "." + field.urlSplit[field.urlSplit.length - 1]
-        else
+        else 
             field.filename = tstamp() + "." + ext[ext.length - 1]
         field.current = field.urlSplit[field.urlSplit.length - 1]
         list.push(field)// Adding to download task list
@@ -144,7 +144,7 @@ function rset() {
 function addPath(path) {
     var os = require("os")
     var sep = (os.platform() == "win32" ? "\\" : "/")
-    if (!path.endsWith("sep"))
+    if (!path.toString().endsWith(sep))
         path = path + sep
     $("#path").val(path)
 }
@@ -172,6 +172,7 @@ $("#folder").on("click", () => {
 })
 // Focusing
 $("#url").focus()
+// Setting default download path
 var sep = (require("os").platform() == "win32" ? "\\" : "/")
 addPath(require("os").homedir() + sep + "Downloads")
 
